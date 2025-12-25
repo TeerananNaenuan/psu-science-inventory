@@ -46,11 +46,12 @@ function History({ data }) {
                 <thead className="bg-gray-50 text-gray-600 uppercase font-bold tracking-wider text-sm border-b border-gray-200">
                     <tr>
                         <th className="px-6 py-4 w-[5%] text-center">#</th>
-                        <th className="px-6 py-4 w-[25%]">รายการพัสดุ</th>
+                        <th className="px-6 py-4 w-[20%]">รายการพัสดุ</th>
                         <th className="px-6 py-4 w-[20%] font-mono">รหัสพัสดุ</th>
                         <th className="px-6 py-4 w-[20%] text-center">วันที่ทำรายการ</th>
                         <th className="px-6 py-4 w-[10%] text-center">จำนวน</th>
-                        <th className="px-6 py-4 w-[20%] text-center">สถานะ</th>
+                        <th className="px-6 py-4 w-[15%] text-center">สถานะ</th>
+                        <th className="px-6 py-4 w-[15%] text-center">หมายเหตุ</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -105,6 +106,10 @@ function History({ data }) {
                                             {status.icon}
                                             {status.label}
                                         </span>
+                                    </td>
+
+                                    <td className="px-6 py-5 text-red-600 font-mono font-medium text-sm">
+                                            {item.reject_reason}
                                     </td>
                                 </tr>
                             );
