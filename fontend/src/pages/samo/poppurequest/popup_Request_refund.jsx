@@ -76,13 +76,24 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
 
                     {/* ข้อมูลผู้คืน */}
                     <div className="bg-orange-50 rounded-xl p-4 mb-4 border border-orange-100 flex items-start gap-4">
-                        <div className="bg-white p-3 rounded-full text-orange-500 shadow-sm">
+                        <div className="bg-white p-3 rounded-full text-orange-500 shadow-sm flex-shrink-0">
                             <FaUser />
                         </div>
-                        <div>
+                        <div className="w-full">
                             <h3 className="font-bold text-gray-800 text-sm uppercase tracking-wider mb-1">ข้อมูลผู้แจ้งคืน</h3>
-                            <p className="text-gray-900 font-bold text-lg leading-tight">{item.user_fullname}</p>
-                            <p className="text-gray-500 text-sm">{item.user_department || 'ไม่ระบุสังกัด'}</p>
+                            <p className="text-gray-900 font-bold text-lg leading-tight mb-1">{item.user_fullname}</p>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 gap-x-4 text-sm text-gray-500">
+                                <span className="flex items-center gap-1">
+                                    {item.user_department || 'ไม่ระบุสังกัด'}
+                                </span>
+                                <span className="hidden sm:inline text-gray-300">|</span>
+                                <div className="flex items-center gap-2 text-gray-600 font-medium">
+                                    <div className="bg-white p-1 rounded-full text-orange-400 shadow-sm border border-orange-100">
+                                        <FaPhone size={10} />
+                                    </div>
+                                    <span>{item.phone|| 'ไม่ระบุเบอร์โทร'}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
