@@ -182,45 +182,42 @@ function User_Package() {
     <div className="p-4 min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}>
       {/* Container Card with Blur Effect */}
       <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50 min-h-[85vh]">
-        
+
         {/* --- Header Section (Tabs + Search) --- */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b border-gray-100 pb-6">
-          
-          {/* 1. Segmented Control Tabs */}
+
+          {/* Segmented Control Tabs */}
           <div className="flex bg-gray-100 p-1.5 rounded-xl gap-1 w-full md:w-auto overflow-x-auto shadow-inner">
             <button
               onClick={() => setActiveTab("borrow")}
-              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${
-                activeTab === "borrow" 
-                ? "bg-yellow-400 text-white shadow-md transform scale-100" 
-                : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
-              }`}
+              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${activeTab === "borrow"
+                  ? "bg-yellow-400 text-white shadow-md transform scale-100"
+                  : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                }`}
             >
               <FaBox /> ยืมพัสดุ
             </button>
             <button
               onClick={() => setActiveTab("return")}
-              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${
-                activeTab === "return" 
-                ? "bg-red-500 text-white shadow-md transform scale-100" 
-                : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
-              }`}
+              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${activeTab === "return"
+                  ? "bg-red-500 text-white shadow-md transform scale-100"
+                  : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                }`}
             >
               <FaUndo /> คืนพัสดุ
             </button>
             <button
               onClick={() => setActiveTab("history")}
-              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${
-                activeTab === "history" 
-                ? "bg-green-500 text-white shadow-md transform scale-100" 
-                : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
-              }`}
+              className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${activeTab === "history"
+                  ? "bg-green-500 text-white shadow-md transform scale-100"
+                  : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                }`}
             >
               <FaHistory /> ประวัติ
             </button>
           </div>
 
-          {/* 2. Modern Search Bar */}
+          {/* Modern Search Bar */}
           <div className="relative w-full md:w-80">
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
             <input

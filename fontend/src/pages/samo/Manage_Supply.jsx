@@ -120,16 +120,16 @@ function Manage_Supply() {
 
   return (
     <div className="p-4 min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}>
-      
+
       {/* Main Container with Glassmorphism */}
       <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50 min-h-[85vh]">
-        
+
         {/* Header Section */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b border-gray-100 pb-6">
-          
+
           <div className="flex items-center gap-4">
             <div className="p-3 bg-yellow-100 rounded-full text-yellow-600 shadow-sm">
-               <FaCube className="w-8 h-8" />
+              <FaCube className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">จัดการพัสดุ</h1>
@@ -187,49 +187,49 @@ function Manage_Supply() {
                     filteredSupplies.map((supply, idx) => (
                       <tr key={supply._id || idx} className="hover:bg-yellow-50/50 transition-colors text-base group">
                         <td className="px-6 py-5 text-center text-gray-500 font-medium">{idx + 1}</td>
-                        
+
                         <td className="px-6 py-5">
-                           <span className="bg-gray-100 text-gray-600 py-1 px-3 rounded-full text-sm font-medium">
-                              {supply.category}
-                           </span>
+                          <span className="bg-gray-100 text-gray-600 py-1 px-3 rounded-full text-sm font-medium">
+                            {supply.category}
+                          </span>
                         </td>
-                        
+
                         <td className="px-6 py-5 font-bold text-gray-800">
-                           <div className="flex items-center gap-3">
-                              <FaBoxOpen className="text-yellow-500 opacity-50 group-hover:opacity-100 transition-opacity" />
-                              {supply.item}
-                           </div>
+                          <div className="flex items-center gap-3">
+                            <FaBoxOpen className="text-yellow-500 opacity-50 group-hover:opacity-100 transition-opacity" />
+                            {supply.item}
+                          </div>
                         </td>
 
                         <td className="px-6 py-5 text-blue-600 font-mono font-medium">
-                           {supply.supply_number}
+                          {supply.supply_number}
                         </td>
 
                         <td className="px-6 py-5 text-center">
-                           {supply.image ? (
-                              <div 
-                                 className="w-12 h-12 mx-auto rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:opacity-80 transition-transform hover:scale-105 shadow-sm"
-                                 onClick={() => handleImageDetail(supply)}
-                                 title="คลิกเพื่อดูรูปใหญ่"
-                              >
-                                 <img src={supply.image} alt="img" className="w-full h-full object-cover" />
-                              </div>
-                           ) : (
-                              <div className="w-12 h-12 mx-auto rounded-lg bg-gray-100 flex items-center justify-center text-gray-300">
-                                 <FaImage />
-                              </div>
-                           )}
+                          {supply.image ? (
+                            <div
+                              className="w-12 h-12 mx-auto rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:opacity-80 transition-transform hover:scale-105 shadow-sm"
+                              onClick={() => handleImageDetail(supply)}
+                              title="คลิกเพื่อดูรูปใหญ่"
+                            >
+                              <img src={supply.image} alt="img" className="w-full h-full object-cover" />
+                            </div>
+                          ) : (
+                            <div className="w-12 h-12 mx-auto rounded-lg bg-gray-100 flex items-center justify-center text-gray-300">
+                              <FaImage />
+                            </div>
+                          )}
                         </td>
 
                         <td className="px-6 py-5 text-center">
-                           <span className={`font-bold text-lg ${supply.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                              {supply.stock}
-                           </span>
-                           <span className="text-xs text-gray-400 ml-1">{supply.unit}</span>
+                          <span className={`font-bold text-lg ${supply.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                            {supply.stock}
+                          </span>
+                          <span className="text-xs text-gray-400 ml-1">{supply.unit}</span>
                         </td>
 
                         <td className="px-6 py-5 text-center">
-                          <button 
+                          <button
                             onClick={() => openEditModal(supply)}
                             className="p-2 bg-yellow-100 text-yellow-600 rounded-lg hover:bg-yellow-200 hover:text-yellow-700 transition-colors"
                             title="แก้ไข"
@@ -239,7 +239,7 @@ function Manage_Supply() {
                         </td>
 
                         <td className="px-6 py-5 text-center">
-                          <button 
+                          <button
                             onClick={() => handleDelete(supply)}
                             className="p-2 bg-red-100 text-red-500 rounded-lg hover:bg-red-200 hover:text-red-600 transition-colors"
                             title="ลบ"
@@ -253,8 +253,8 @@ function Manage_Supply() {
                     <tr>
                       <td colSpan="8" className="px-6 py-16 text-center text-gray-400 text-lg">
                         <div className="flex flex-col items-center gap-3">
-                           <FaBoxOpen className="text-5xl opacity-20" />
-                           <span>ไม่พบรายการพัสดุ</span>
+                          <FaBoxOpen className="text-5xl opacity-20" />
+                          <span>ไม่พบรายการพัสดุ</span>
                         </div>
                       </td>
                     </tr>

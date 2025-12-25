@@ -9,7 +9,6 @@ exports.create = async (req, res) => {
         const { user_id, supply_id, amount, due_date } = req.body;
         const user = await User.findOne({ _id: user_id }).exec();
         const supply = await Supply.findOne({ _id: supply_id }).exec();
-
         if (!user) return res.status(404).send('User not found');
         if (!supply) return res.status(404).send('Supply not found');
 
@@ -29,7 +28,6 @@ exports.create = async (req, res) => {
             due_date: due_date,
             status: 'pending_borrow'
         });
-
         await borrow.save();
         res.status(201).json({ message: 'ส่งคำขอยืมเรียบร้อย รอแอดมินอนุมัติ', data: borrow });
 
@@ -43,17 +41,13 @@ exports.create = async (req, res) => {
 exports.approveBorrow = async (req, res) => {
     try {
         const { id } = req.params;
-
         const borrow = await Borrow.findById(id).exec();
         if (!borrow) return res.status(404).send('ไม่พบรายการนี้');
-
         const supply = await Supply.findById(borrow.supply_id);
         if (supply.stock < borrow.amount) {
             return res.status(400).send('ของหมดสต็อกแล้ว ไม่สามารถอนุมัติได้');
         }
-
         await Supply.findByIdAndUpdate(borrow.supply_id, { $inc: { stock: -borrow.amount } });
-
         const updatedBorrow = await Borrow.findByIdAndUpdate(id, {
             status: 'borrow',
             approve_date: new Date()
@@ -74,9 +68,7 @@ exports.approveBorrow = async (req, res) => {
             action_date: new Date()
         });
         await backupLog.save();
-
         res.json({ message: 'อนุมัติการยืมสำเร็จ' });
-
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -88,15 +80,12 @@ exports.requestReturn = async (req, res) => {
     try {
         const { id } = req.params;
         const { image_retern } = req.body;
-
         await Borrow.findByIdAndUpdate(id, {
             status: 'pending_return',
             return_image: image_retern,
             return_request_date: new Date()
         });
-
         res.json({ message: 'ส่งคำขอคืนเรียบร้อย รอเจ้าหน้าที่ตรวจสอบ' });
-
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -113,7 +102,6 @@ exports.approveReturn = async (req, res) => {
             { _id: borrowData.supply_id },
             { $inc: { stock: +borrowData.amount } }
         );
-
         const backupLog = new Backup({
             ref_borrow_id: borrowData._id,
             action_type: 'return',
@@ -131,9 +119,7 @@ exports.approveReturn = async (req, res) => {
         });
         await backupLog.save();
         await Borrow.findByIdAndDelete(borrowId);
-
         res.json({ message: 'รับคืนพัสดุเรียบร้อยแล้ว', history: backupLog });
-
     } catch (err) {
         console.log(err);
         res.status(500).send('Server Error');
@@ -163,7 +149,6 @@ exports.rejectBorrow = async (req, res) => {
     try {
         const id = req.params.id;
         const { reject_reason } = req.body;
-
         const borrowData = await Borrow.findById(id).exec();
         if (!borrowData) return res.status(404).send('ไม่พบรายการ');
 
@@ -198,12 +183,8 @@ exports.rejectReturn = async (req, res) => {
     try {
         const id = req.params.id;
         const { reject_reason } = req.body;
-
         const borrowData = await Borrow.findById(id).exec();
         if (!borrowData) return res.status(404).send('ไม่พบรายการ');
-
-        // คืน Stock กลับ
-        // await Supply.findOneAndUpdate({ _id: borrowData.supply_id }, { $inc: { stock: +borrowData.amount } });
 
         const backupLog = new Backup({
             ref_borrow_id: borrowData._id.toString(),

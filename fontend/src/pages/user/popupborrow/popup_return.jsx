@@ -1,6 +1,6 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom'; // 1. Import createPortal
+import { createPortal } from 'react-dom';
 import { FaCamera, FaCheckCircle, FaCloudUploadAlt, FaTimes, FaUndoAlt } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
@@ -26,8 +26,7 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
             const response = await fetch(`${API}/imagekit-auth`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                    "ngrok-skip-browser-warning": "true"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -67,19 +66,18 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
         }
     };
 
-    // 2. ใช้ createPortal ย้ายไป render ที่ body เพื่อแก้ปัญหา Popup ไม่ขึ้น
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-            
+
             {/* Overlay สีดำจางๆ */}
-            <div 
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
+            <div
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             ></div>
 
             {/* ตัว Popup */}
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100 animate-in fade-in zoom-in duration-200">
-                
+
                 {/* Header Gradient */}
                 <div className="bg-gradient-to-r from-red-500 to-orange-500 px-6 py-4 flex items-center gap-3 text-white shadow-md relative z-10">
                     <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
@@ -89,7 +87,7 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                         <h2 className="text-xl font-bold tracking-wide">ยืนยันการคืนพัสดุ</h2>
                         <p className="text-red-100 text-xs opacity-90">แนบหลักฐานการส่งคืน</p>
                     </div>
-                    
+
                     {/* ปุ่มปิดมุมขวาบน */}
                     <button onClick={onClose} className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors">
                         <FaTimes />
@@ -105,8 +103,8 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                     <div className={`w-full h-64 relative group rounded-xl overflow-hidden border-2 border-dashed transition-all duration-300
                         ${returnImage ? 'border-green-500' : 'border-gray-300 hover:border-red-400 hover:bg-red-50/30'}
                     `}>
-                        
-                        {/* 1. กรณีมีรูปภาพแล้ว (Show Preview) */}
+
+                        {/* กรณีมีรูปภาพแล้ว (Show Preview) */}
                         {returnImage ? (
                             <div className="relative w-full h-full">
                                 <img
@@ -126,7 +124,7 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                                 </div>
                             </div>
                         ) : (
-                            /* 2. กรณีไม่มีรูปภาพ (Show Placeholder) */
+                            /* กรณีไม่มีรูปภาพ (Show Placeholder) */
                             <div className={`w-full h-full flex flex-col items-center justify-center text-gray-400 ${uploading ? 'bg-gray-50' : ''}`}>
                                 {uploading ? (
                                     <>
@@ -146,7 +144,7 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                             </div>
                         )}
 
-                        {/* Hidden Input สำหรับ ImageKit (คลิกได้ทั่วพื้นที่) */}
+                        {/* Hidden Input สำหรับ ImageKit */}
                         <div className="absolute inset-0 opacity-0 cursor-pointer z-20">
                             <IKContext
                                 publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
@@ -176,11 +174,10 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                         <button
                             onClick={handleConfirm}
                             disabled={!returnImage || uploading}
-                            className={`px-6 py-2.5 rounded-xl text-white font-bold shadow-md transform transition-transform active:scale-95 flex items-center gap-2 ${
-                                !returnImage || uploading
-                                ? 'bg-gray-300 cursor-not-allowed shadow-none'
-                                : 'bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700'
-                            }`}
+                            className={`px-6 py-2.5 rounded-xl text-white font-bold shadow-md transform transition-transform active:scale-95 flex items-center gap-2 ${!returnImage || uploading
+                                    ? 'bg-gray-300 cursor-not-allowed shadow-none'
+                                    : 'bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700'
+                                }`}
                         >
                             <FaCheckCircle /> ยืนยันการคืน
                         </button>
@@ -189,7 +186,7 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                 </div>
             </div>
         </div>,
-        document.body // 3. Render ที่ Body
+        document.body
     );
 }
 

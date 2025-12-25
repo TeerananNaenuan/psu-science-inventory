@@ -33,7 +33,6 @@ exports.addSupply = async (req, res) => {
         if (existingSupply) {
             return res.status(400).json({ message: 'รหัสพัสดุนี้ถูกใช้ไปแล้ว' });
         }
-
         // สร้าง supply ใหม่
         const newSupply = new Supply({
             category,
@@ -43,10 +42,8 @@ exports.addSupply = async (req, res) => {
             stock,
             unit,
         });
-
-        // บันทึก supply ใหม่ในฐานข้อมูล
+        
         const savedSupply = await newSupply.save();
-
         // ส่งข้อมูลพัสดุที่เพิ่มสำเร็จ (รวม _id) กลับไปให้ frontend
         res.status(201).json(savedSupply);
     } catch (err) {

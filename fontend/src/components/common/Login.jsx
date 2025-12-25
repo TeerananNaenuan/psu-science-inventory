@@ -30,34 +30,21 @@ function Login({ onLogin }) {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#0f172a] font-sans">
-
-      {/* --- 1. Animated Background Elements (ลูกบอลแสงลอยไปมา) --- */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        {/* Blue Orb */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#003c71] mix-blend-multiply filter blur-[100px] opacity-70 animate-blob"></div>
-        {/* Yellow Orb */}
         <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#ffcd08] mix-blend-multiply filter blur-[100px] opacity-60 animate-blob animation-delay-2000"></div>
-        {/* Cyan Orb */}
         <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-500 mix-blend-multiply filter blur-[120px] opacity-50 animate-blob animation-delay-4000"></div>
-
-        {/* Grid Pattern Overlay */}
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
       </div>
 
-      {/* --- 2. Glassmorphism Card --- */}
       <div className="relative z-10 w-full max-w-[900px] h-auto lg:h-[550px] flex flex-col lg:flex-row bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.3)] overflow-hidden">
-
-        {/* Left Side: Branding (ปรับปรุงให้ชัดเจนขึ้น) */}
         <div
           className="w-full lg:w-5/12 p-10 flex flex-col justify-between text-white relative bg-cover bg-center"
-          style={{ backgroundImage: "url('/src/assets/L1.jpg')" }} // 🔴 ใส่รูปพื้นหลังตึกคณะตรงนี้ (เปลี่ยน path ตามจริง)
+          style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}
         >
-          {/* Dark Overlay เพื่อให้ข้อความเด่นชัด */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#003c71]/95 to-[#001f3f]/90 z-0"></div>
-
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
-              {/* เพิ่มพื้นหลังขาวจางๆ ให้โลโก้ */}
               <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
                 <img src="/src/assets/PSU.png" alt="PSU" className="h-10 drop-shadow-md" />
               </div>
@@ -79,17 +66,12 @@ function Login({ onLogin }) {
             &copy; 2025 PSU Inventory System.
           </div>
 
-          {/* Decorative Circle inside card */}
           <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#ffcd08] rounded-full blur-3xl opacity-40 z-0"></div>
         </div>
 
-        {/* Right Side: Form */}
         <div className="w-full lg:w-7/12 p-10 bg-white/5 relative">
           <h2 className="text-2xl font-bold text-white mb-6">เข้าสู่ระบบ</h2>
-
           <form onSubmit={handleLoginClick} className="space-y-6">
-
-            {/* Username */}
             <div className="group">
               <label className="text-xs font-semibold text-blue-200 uppercase tracking-wider mb-2 block group-focus-within:text-[#ffcd08] transition-colors">ชื่อผู้ใช้งาน</label>
               <div className="relative">
@@ -106,7 +88,6 @@ function Login({ onLogin }) {
               </div>
             </div>
 
-            {/* Password */}
             <div className="group">
               <label className="text-xs font-semibold text-blue-200 uppercase tracking-wider mb-2 block group-focus-within:text-[#ffcd08] transition-colors">รหัสผ่าน</label>
               <div className="relative">
@@ -120,7 +101,6 @@ function Login({ onLogin }) {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                 />
-                {/* 🔴 ปรับปรุงสีไอคอนดวงตาให้ชัดเจนขึ้น */}
                 <div
                   className={`absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer transition-colors ${password ? 'text-[#ffcd08] hover:text-white' : 'text-white/30'}`}
                   onClick={() => setShowPassword(!showPassword)}
@@ -130,7 +110,6 @@ function Login({ onLogin }) {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -149,7 +128,6 @@ function Login({ onLogin }) {
         </div>
       </div>
 
-      {/* --- Add CSS Animation Keyframes --- */}
       <style>{`
         @keyframes blob {
           0% { transform: translate(0px, 0px) scale(1); }

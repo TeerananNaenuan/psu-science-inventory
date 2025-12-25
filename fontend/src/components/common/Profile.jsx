@@ -15,10 +15,10 @@ function Profile() {
         department: '',
         email: '',
         phone: '',
-        image: '' // เพิ่ม field image
+        image: ''
     });
     const [loading, setLoading] = useState(true);
-    const [uploading, setUploading] = useState(false); // เช็คสถานะการอัปโหลด
+    const [uploading, setUploading] = useState(false);
 
     const getAuthHeaders = () => {
         const token = localStorage.getItem('token');
@@ -31,7 +31,6 @@ function Profile() {
         };
     };
 
-    // --- ImageKit Authenticator ---
     const authenticator = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -65,12 +64,9 @@ function Profile() {
 
     const onUploadSuccess = (res) => {
         setUploading(false);
-        // อัปเดต State รูปภาพทันทีเพื่อให้แสดงผล
         setUser(prev => ({ ...prev, image: res.url }));
     };
-    // -----------------------------
 
-    // ดึงข้อมูล User
     useEffect(() => {
         const fetchUser = async () => {
             const userString = localStorage.getItem('user');
@@ -105,7 +101,6 @@ function Profile() {
         });
     };
 
-    // ฟังก์ชัน Update
     const handleUpdate = async () => {
         try {
             const userId = user._id;
@@ -115,18 +110,17 @@ function Profile() {
                 department: user.department,
                 email: user.email,
                 phone: user.phone,
-                image: user.image // ส่งรูปล่าสุดไปด้วย
+                image: user.image
             };
 
             await axios.put(`${API}/users/${userId}`, payload, getAuthHeaders());
 
             alert("แก้ไขข้อมูลสำเร็จ!");
-            // อัปเดต localStorage ด้วย
+
             const oldUser = JSON.parse(localStorage.getItem('user'));
             const newUser = { ...oldUser, ...payload };
             localStorage.setItem('user', JSON.stringify(newUser));
 
-            // รีเฟรชหน้าเพื่อให้รูปบน Navbar เปลี่ยน (ถ้ามี)
             window.location.reload();
 
         } catch (err) {
@@ -155,9 +149,7 @@ function Profile() {
         <div className="min-h-screen bg-gray-100 flex justify-center items-center py-10 px-4"
             style={{ backgroundImage: "url('/src/assets/L1.jpg')", backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
 
-            {/* การ์ดหลัก ปรับให้กว้างขึ้นเพื่อรองรับ 2 คอลัมน์ */}
             <div className="bg-white bg-opacity-95 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
-
                 {loading ? (
                     <div className="w-full flex flex-col items-center justify-center py-20 text-gray-500">
                         <FaSpinner className="animate-spin text-5xl mb-4 text-yellow-500" />
@@ -165,10 +157,8 @@ function Profile() {
                     </div>
                 ) : (
                     <>
-                        {/* --- ฝั่งซ้าย: ส่วนรูปโปรไฟล์ --- */}
                         <div className="w-full md:w-1/3 bg-gradient-to-b from-yellow-400 to-yellow-500 p-8 flex flex-col items-center justify-center text-white relative">
 
-                            {/* รูปโปรไฟล์ */}
                             <div className="relative group">
                                 <div className="w-48 h-48 rounded-full border-4 border-white shadow-lg overflow-hidden bg-gray-200 flex items-center justify-center">
                                     {user.image ? (
@@ -177,7 +167,6 @@ function Profile() {
                                         <FaUserCircle className="w-40 h-40 text-gray-400" />
                                     )}
 
-                                    {/* Loading Overlay */}
                                     {uploading && (
                                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
                                             <FaSpinner className="animate-spin text-white text-3xl" />
@@ -185,7 +174,6 @@ function Profile() {
                                     )}
                                 </div>
 
-                                {/* ปุ่มกล้องถ่ายรูป */}
                                 <div className="absolute bottom-2 right-4 z-20">
                                     <IKContext
                                         publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
@@ -210,12 +198,10 @@ function Profile() {
                             <p className="opacity-90 text-center">{user.department || "ไม่ระบุสังกัด"}</p>
                         </div>
 
-                        {/* --- ฝั่งขวา: แบบฟอร์มแก้ไขข้อมูล --- */}
                         <div className="w-full md:w-2/3 p-8 md:p-12">
                             <h2 className="text-3xl font-bold text-gray-800 mb-8 border-b pb-4">ข้อมูลส่วนตัว</h2>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {/* ชื่อ-นามสกุล */}
                                 <div className="col-span-1 md:col-span-2">
                                     <label className="block text-gray-600 font-semibold mb-2">ชื่อ-นามสกุล</label>
                                     <input
@@ -228,7 +214,6 @@ function Profile() {
                                     />
                                 </div>
 
-                                {/* สังกัด (แก้ไขได้ตาม Form เดิม) */}
                                 <div>
                                     <label className="block text-gray-600 font-semibold mb-2">สังกัด/แผนก</label>
                                     <input
@@ -240,7 +225,6 @@ function Profile() {
                                     />
                                 </div>
 
-                                {/* เบอร์โทรศัพท์ */}
                                 <div>
                                     <label className="block text-gray-600 font-semibold mb-2">เบอร์โทรศัพท์</label>
                                     <input
@@ -257,7 +241,6 @@ function Profile() {
                                     />
                                 </div>
 
-                                {/* อีเมล */}
                                 <div className="col-span-1 md:col-span-2">
                                     <label className="block text-gray-600 font-semibold mb-2">อีเมล</label>
                                     <input
@@ -270,7 +253,6 @@ function Profile() {
                                 </div>
                             </div>
 
-                            {/* ปุ่ม Action */}
                             <div className="mt-10 flex flex-col-reverse md:flex-row justify-end gap-4">
                                 <button
                                     onClick={handleDelete}
@@ -284,8 +266,8 @@ function Profile() {
                                     onClick={handleUpdate}
                                     disabled={uploading}
                                     className={`flex items-center justify-center gap-2 px-8 py-3 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading
-                                            ? 'bg-gray-400 cursor-not-allowed'
-                                            : 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700'
+                                        ? 'bg-gray-400 cursor-not-allowed'
+                                        : 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700'
                                         }`}
                                 >
                                     <FaSave /> บันทึกการแก้ไข

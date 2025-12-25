@@ -219,14 +219,14 @@ function Manage_User() {
       style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}
     >
       <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
-        
+
         {/* Header Section (ปรับตัวหนังสือให้ใหญ่ขึ้น) */}
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
           <div className="flex items-center gap-4">
-            
+
             {/* ไอคอนวงกลมสีเหลือง */}
             <div className="p-4 bg-yellow-100 rounded-full text-yellow-600 shadow-sm">
-               <FaUserCog className="w-10 h-10" />
+              <FaUserCog className="w-10 h-10" />
             </div>
 
             <div>
@@ -287,7 +287,7 @@ function Manage_User() {
                       // เพิ่มขนาด Font ในแต่ละแถว เป็น text-base (16px)
                       <tr key={user._id || idx} className="hover:bg-yellow-50/50 transition-colors text-base">
                         <td className="px-6 py-5 text-center text-gray-500 font-medium">{idx + 1}</td>
-                        
+
                         {/* รูป Avatar */}
                         <td className="px-6 py-5 flex justify-center">
                           <div className="w-12 h-12 rounded-full border border-gray-200 overflow-hidden bg-gray-100">
@@ -302,7 +302,7 @@ function Manage_User() {
                         <td className="px-6 py-5 font-bold text-gray-800">{user.username}</td>
                         <td className="px-6 py-5 text-gray-700">{user.fullname}</td>
                         <td className="px-6 py-5 text-gray-600">{user.department}</td>
-                        
+
                         {/* Role Badge */}
                         <td className="px-6 py-5 text-center">
                           <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${getRoleBadgeColor(user.role)}`}>

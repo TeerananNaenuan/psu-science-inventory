@@ -8,7 +8,6 @@ const API = import.meta.env.VITE_API;
 function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
   const [uploading, setUploading] = useState(false);
 
-  // --- Authenticator ---
   const authenticator = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -196,7 +195,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                   <option value="สูญหาย">สูญหาย</option>
                 </select>
               </div>
-
             </div>
 
             {/* Action Buttons */}
@@ -221,7 +219,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
               </button>
             </div>
           </div>
-
         </form>
       </div>
     </div>

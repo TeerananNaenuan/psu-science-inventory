@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createPortal } from 'react-dom'; // 1. Import
+import { createPortal } from 'react-dom';
 import { FaBoxOpen, FaBuilding, FaCalendarAlt, FaCheckCircle, FaClipboardList, FaTimes, FaTimesCircle, FaUser } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
@@ -28,7 +28,7 @@ function PopupBorrowerDetail({ item, onClose, onSuccess }) {
   // ฟังก์ชันกดปฏิเสธ
   const handleReject = async () => {
     const reason = prompt("กรุณาระบุเหตุผลที่ไม่อนุมัติ:");
-    if (reason === null) return; // กด Cancel
+    if (reason === null) return;
 
     try {
       const token = localStorage.getItem('token');
@@ -44,7 +44,7 @@ function PopupBorrowerDetail({ item, onClose, onSuccess }) {
     }
   };
 
-  // 2. ใช้ createPortal
+  // ใช้ createPortal
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
 
@@ -147,10 +147,9 @@ function PopupBorrowerDetail({ item, onClose, onSuccess }) {
             <FaCheckCircle /> อนุมัติให้ยืม
           </button>
         </div>
-
       </div>
     </div>,
-    document.body // Render ที่ Body
+    document.body
   );
 }
 

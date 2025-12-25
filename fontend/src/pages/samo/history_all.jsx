@@ -38,32 +38,32 @@ function History_all() {
     const getStatusConfig = (type) => {
         switch (type?.toLowerCase()) {
             case 'return':
-                return { 
-                    label: 'คืนสำเร็จ', 
+                return {
+                    label: 'คืนสำเร็จ',
                     style: 'bg-green-100 text-green-700 border border-green-200',
                     icon: <FaCheckCircle />
                 };
             case 'borrow':
-                return { 
-                    label: 'ยืมสำเร็จ', 
+                return {
+                    label: 'ยืมสำเร็จ',
                     style: 'bg-blue-100 text-blue-700 border border-blue-200',
                     icon: <FaExchangeAlt />
                 };
             case 'reject_borrow':
-                return { 
-                    label: 'ปฏิเสธการยืม', 
+                return {
+                    label: 'ปฏิเสธการยืม',
                     style: 'bg-red-100 text-red-700 border border-red-200',
                     icon: <FaTimesCircle />
                 };
             case 'reject_return':
-                return { 
-                    label: 'ปฏิเสธการคืน', 
+                return {
+                    label: 'ปฏิเสธการคืน',
                     style: 'bg-orange-100 text-orange-700 border border-orange-200',
                     icon: <FaTimesCircle />
                 };
             default:
-                return { 
-                    label: type, 
+                return {
+                    label: type,
                     style: 'bg-gray-100 text-gray-600 border border-gray-200',
                     icon: null
                 };
@@ -85,16 +85,16 @@ function History_all() {
 
     return (
         <div className="p-4 min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}>
-            
+
             {/* Main Container */}
             <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50 min-h-[85vh]">
-                
+
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b border-gray-100 pb-6">
-                    
+
                     <div className="flex items-center gap-4">
                         <div className="p-3 bg-blue-100 rounded-full text-blue-600 shadow-sm">
-                           <FaHistory className="w-8 h-8" />
+                            <FaHistory className="w-8 h-8" />
                         </div>
                         <div>
                             <h1 className="text-3xl font-bold text-gray-800">ประวัติการทำรายการ</h1>
@@ -142,11 +142,11 @@ function History_all() {
                                             const status = getStatusConfig(item.action_type);
                                             return (
                                                 <tr key={item._id || index} className="hover:bg-blue-50/30 transition-colors text-base group">
-                                                    
+
                                                     <td className="px-6 py-5 text-center text-gray-500 font-medium">
                                                         {index + 1}
                                                     </td>
-                                                    
+
                                                     {/* ผู้ดำเนินการ */}
                                                     <td className="px-6 py-5">
                                                         <div className="flex flex-col gap-1">
@@ -160,7 +160,7 @@ function History_all() {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    
+
                                                     {/* รายการพัสดุ */}
                                                     <td className="px-6 py-5">
                                                         <div className="flex items-center gap-3">

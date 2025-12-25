@@ -44,7 +44,6 @@ function Return_request() {
     if (url) window.open(url, '_blank', 'noopener,noreferrer');
   }
 
-  // 🔴 เอา div wrapper ภายนอก (bg-cover, card) ออก เพื่อให้กลมกลืนกับ Samo_Package
   return (
     <div className="w-full animate-fade-in-up">
 

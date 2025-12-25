@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom'; // 1. เพิ่ม import นี้
+import { createPortal } from 'react-dom';
 import { FaBoxOpen, FaCalendarAlt, FaClipboardList, FaCubes, FaHashtag, FaLayerGroup } from 'react-icons/fa';
 
 function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
@@ -32,13 +32,12 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
     return `${year}-${month}-${day}`;
   };
 
-  // 2. ใช้ createPortal เพื่อย้าย Popup ไปที่ body โดยตรง
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-      
+
       {/* Overlay สีดำจางๆ (คลิกพื้นหลังเพื่อปิด) */}
-      <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
 
@@ -70,7 +69,7 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
               <span className="text-xs font-medium">ไม่มีรูปภาพ</span>
             </div>
           )}
-          
+
           <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-md backdrop-blur-md flex items-center gap-1.5">
             <FaCubes className="text-yellow-400" />
             <span>คงเหลือ: <span className="font-bold text-yellow-300">{selectedItem.stock ?? selectedItem.available ?? '-'}</span></span>
@@ -143,8 +142,8 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
               onClick={handleConfirm}
               disabled={!returnDate || quantity < 1}
               className={`px-6 py-2 rounded-lg text-sm text-white font-bold shadow-md transform transition-transform active:scale-95 ${!returnDate || quantity < 1
-                  ? 'bg-gray-300 cursor-not-allowed shadow-none'
-                  : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                ? 'bg-gray-300 cursor-not-allowed shadow-none'
+                : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
                 }`}
             >
               ยืนยันการยืม
@@ -154,7 +153,7 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
         </div>
       </div>
     </div>,
-    document.body // 3. ระบุเป้าหมายให้ไป render ที่ body
+    document.body
   );
 }
 

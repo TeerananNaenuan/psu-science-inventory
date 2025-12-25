@@ -31,8 +31,8 @@ function Samo_Package() {
                         <button
                             onClick={() => setActiveTab("borrow_request")}
                             className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${activeTab === "borrow_request"
-                                    ? "bg-yellow-500 text-white shadow-md transform scale-100"
-                                    : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                                ? "bg-yellow-500 text-white shadow-md transform scale-100"
+                                : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
                                 }`}
                         >
                             <FaClipboardList /> คำขอยืม (รออนุมัติ)
@@ -40,8 +40,8 @@ function Samo_Package() {
                         <button
                             onClick={() => setActiveTab("return_request")}
                             className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg font-bold transition-all text-sm whitespace-nowrap flex-1 md:flex-none ${activeTab === "return_request"
-                                    ? "bg-red-500 text-white shadow-md transform scale-100" // เปลี่ยนสีเป็นแดงเพื่อให้เข้ากับธีม Return
-                                    : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                                ? "bg-red-500 text-white shadow-md transform scale-100"
+                                : "text-gray-500 hover:bg-gray-200 hover:text-gray-700"
                                 }`}
                         >
                             <FaUndoAlt /> คำขอคืน (รอตรวจสอบ)

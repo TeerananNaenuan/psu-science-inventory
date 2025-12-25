@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createPortal } from 'react-dom'; // 1. Import
+import { createPortal } from 'react-dom';
 import { FaBoxOpen, FaCheckCircle, FaClipboardList, FaImage, FaTimes, FaTimesCircle, FaUser } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
@@ -44,7 +44,7 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
         }
     };
 
-    // 2. ใช้ createPortal
+    // ใช้ createPortal
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
 
@@ -159,10 +159,9 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                         <FaCheckCircle /> ยืนยันรับคืน
                     </button>
                 </div>
-
             </div>
         </div>,
-        document.body // Render ที่ Body
+        document.body
     );
 }
 

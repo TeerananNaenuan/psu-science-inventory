@@ -8,15 +8,13 @@ const API = import.meta.env.VITE_API;
 function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
   const [uploading, setUploading] = useState(false);
 
-  // --- Authenticator ---
   const authenticator = async () => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`${API}/imagekit-auth`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true"
+          "Content-Type": "application/json"
         }
       });
 
@@ -56,14 +54,14 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden">
 
-        {/* --- ✨ Header ดีไซน์ใหม่ ✨ --- */}
+        {/* --- Header --- */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-5 flex items-center gap-4 text-white shadow-md">
           <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
-             <FaUserPlus className="text-3xl" />
+            <FaUserPlus className="text-3xl" />
           </div>
           <div>
-             <h2 className="text-2xl font-bold tracking-wide">เพิ่มผู้ใช้งานใหม่</h2>
-             <p className="text-blue-100 text-sm opacity-90">กรอกข้อมูลเพื่อสร้างบัญชีผู้ใช้ในระบบ</p>
+            <h2 className="text-2xl font-bold tracking-wide">เพิ่มผู้ใช้งานใหม่</h2>
+            <p className="text-blue-100 text-sm opacity-90">กรอกข้อมูลเพื่อสร้างบัญชีผู้ใช้ในระบบ</p>
           </div>
         </div>
 
@@ -120,7 +118,7 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
 
             {/* --- ฝั่งขวา: ข้อมูลผู้ใช้ --- */}
             <div className="w-full md:w-2/3 flex flex-col gap-5">
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อผู้ใช้ (Login) <span className="text-red-500">*</span></label>
@@ -244,7 +242,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
               {uploading ? 'กำลังโหลด...' : 'บันทึกข้อมูล'}
             </button>
           </div>
-
         </form>
       </div>
     </div>

@@ -141,7 +141,7 @@ exports.update = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // สร้าง Token ใหม่ 
+        // สร้าง Token ใหม่
         const token = jwt.sign(
             { id: updatedUser._id, username: updatedUser.username, role: updatedUser.role },
             process.env.JWT_SECRET,

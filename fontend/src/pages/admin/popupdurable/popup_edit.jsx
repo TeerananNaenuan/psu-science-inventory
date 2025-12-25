@@ -8,7 +8,6 @@ const API = import.meta.env.VITE_API;
 function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
   const [uploading, setUploading] = useState(false);
 
-  // --- Authenticator ---
   const authenticator = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -136,7 +135,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                   value={formData.asset_number}
                   onChange={onChange}
                   className="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed focus:outline-none font-mono"
-                  disabled // ปกติจะไม่ให้แก้รหัสครุภัณฑ์
+                  disabled
                 />
               </div>
 
@@ -211,8 +210,8 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               <button
                 type="submit"
                 className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-md transform transition-transform hover:-translate-y-0.5 ${uploading
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600'
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600'
                   }`}
                 disabled={uploading}
               >
@@ -220,7 +219,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               </button>
             </div>
           </div>
-
         </form>
       </div>
     </div>

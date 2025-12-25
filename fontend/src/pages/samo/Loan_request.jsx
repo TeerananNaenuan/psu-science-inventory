@@ -45,7 +45,6 @@ function Loan_request() {
     setSelectedRequest(null);
   }
 
-  // 🔴 เอา div wrapper ภายนอก (bg-cover, card) ออก
   return (
     <div className="w-full animate-fade-in-up">
 

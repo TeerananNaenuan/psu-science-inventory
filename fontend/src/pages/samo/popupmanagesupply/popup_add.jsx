@@ -8,15 +8,13 @@ const API = import.meta.env.VITE_API;
 function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
    const [uploading, setUploading] = useState(false);
 
-   // --- Authenticator ---
    const authenticator = async () => {
       try {
          const token = localStorage.getItem('token');
          const response = await fetch(`${API}/imagekit-auth`, {
             headers: {
                "Authorization": `Bearer ${token}`,
-               "Content-Type": "application/json",
-               "ngrok-skip-browser-warning": "true"
+               "Content-Type": "application/json"
             }
          });
          if (!response.ok) throw new Error(`Request failed`);
@@ -120,7 +118,7 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                {/* Right Column: Form */}
                <div className="w-full md:w-7/12 p-8 flex flex-col justify-between">
                   <div className="space-y-5">
-                     
+
                      {/* ชื่อพัสดุ */}
                      <div>
                         <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อพัสดุ <span className="text-red-500">*</span></label>
@@ -136,7 +134,7 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                      </div>
 
                      <div className="grid grid-cols-2 gap-5">
-                        
+
                         {/* หมวดหมู่ */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
@@ -152,7 +150,7 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                            />
                         </div>
 
-                        {/* รหัสพัสดุ (แก้ไขจุดนี้) */}
+                        {/* รหัสพัสดุ */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
                               รหัสพัสดุ <span className="text-red-500">*</span>
@@ -164,14 +162,13 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                               onChange={onChange}
                               required
                               placeholder="เช่น SUP001"
-                              // 🔴 ลบ font-mono และ text-sm ออก, เปลี่ยนมาใช้ input ธรรมดาเพื่อให้กว้างเต็ม
                               className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow placeholder-gray-400"
                            />
                         </div>
                      </div>
 
                      <div className="grid grid-cols-2 gap-5">
-                        
+
                         {/* จำนวน */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">

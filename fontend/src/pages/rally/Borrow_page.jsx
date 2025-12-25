@@ -97,8 +97,8 @@ function Borrow({ data, onBorrowConfirm }) {
                 <td className="px-6 py-5 text-center">
                   <button
                     className={`flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl font-bold text-sm shadow-md transition-all transform active:scale-95 ${item.stock > 0
-                        ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white hover:from-yellow-500 hover:to-orange-600 hover:-translate-y-0.5'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white hover:from-yellow-500 hover:to-orange-600 hover:-translate-y-0.5'
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       }`}
                     onClick={() => handleBorrowClick(item)}
                     disabled={item.stock <= 0}

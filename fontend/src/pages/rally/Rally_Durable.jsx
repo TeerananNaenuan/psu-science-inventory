@@ -26,7 +26,7 @@ function Rally_Durable() {
             const res = await fetch(`${API}/durables`, { headers: headersConfig });
             const data = await res.json();
             setDurables(data);
-        } catch (err) { console.error('Error:', err); } 
+        } catch (err) { console.error('Error:', err); }
         finally { setLoading(false); }
     };
 
@@ -65,7 +65,7 @@ function Rally_Durable() {
     return (
         <div className="p-4 min-h-screen bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/src/assets/L1.jpg')" }}>
             <div className="bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
-                
+
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
                     <div className="flex items-center gap-4">
@@ -118,11 +118,11 @@ function Rally_Durable() {
                                         filteredDurables.map((durable, idx) => (
                                             <tr key={durable._id} className="hover:bg-yellow-50/50 transition-colors text-base">
                                                 <td className="px-6 py-5 text-center text-gray-500 font-medium">{idx + 1}</td>
-                                                
+
                                                 <td className="px-6 py-5 font-mono font-bold text-blue-600">
                                                     {durable.asset_number}
                                                 </td>
-                                                
+
                                                 <td className="px-6 py-5 font-medium text-gray-800">
                                                     {durable.item}
                                                 </td>
@@ -137,7 +137,7 @@ function Rally_Durable() {
 
                                                 <td className="px-6 py-5 text-center">
                                                     {durable.image ? (
-                                                        <div 
+                                                        <div
                                                             className="w-16 h-12 mx-auto rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:opacity-80 bg-gray-50"
                                                             onClick={() => handleImageDetail(durable)}
                                                             title="คลิกเพื่อดูรูปใหญ่"
@@ -179,17 +179,15 @@ function Rally_Durable() {
                     <button
                         onClick={handleSubmit}
                         disabled={loading || Object.keys(statusChanges).length === 0}
-                        className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-lg shadow-xl border-2 border-white transition-all transform hover:-translate-y-1 ${
-                            loading || Object.keys(statusChanges).length === 0
-                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                            : "bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:from-blue-700 hover:to-blue-900"
-                        }`}
+                        className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-lg shadow-xl border-2 border-white transition-all transform hover:-translate-y-1 ${loading || Object.keys(statusChanges).length === 0
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : "bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:from-blue-700 hover:to-blue-900"
+                            }`}
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <FaSave />}
                         {loading ? "กำลังบันทึก..." : "บันทึกการเปลี่ยนแปลง"}
                     </button>
                 </div>
-
             </div>
         </div>
     );

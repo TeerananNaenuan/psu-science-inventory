@@ -40,7 +40,6 @@ function History({ data }) {
 
     return (
         <div className="overflow-x-auto pb-20">
-            {/* Table Header (Optional: ถ้าหน้าหลักมี Header แล้ว ส่วนนี้อาจซ่อนได้) */}
 
             <table className="w-full text-left border-collapse">
                 <thead className="bg-gray-50 text-gray-600 uppercase font-bold tracking-wider text-sm border-b border-gray-200">

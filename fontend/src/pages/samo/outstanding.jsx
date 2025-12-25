@@ -23,11 +23,7 @@ function Outstanding() {
         setLoading(true);
         try {
             const res = await axios.get(`${API}/borrows`, headersConfig);
-
-            // กรองเอาเฉพาะสถานะ "borrow" (คือยังยืมอยู่ ยังไม่ได้คืน)
             const activeBorrows = res.data.filter(item => item.status === 'borrow');
-
-            // เรียงลำดับตามวันกำหนดคืน (ใกล้คืนก่อน ขึ้นก่อน)
             activeBorrows.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
 
             setItems(activeBorrows);
@@ -49,7 +45,7 @@ function Outstanding() {
         const due = new Date(dueDate);
         today.setHours(0, 0, 0, 0);
         due.setHours(0, 0, 0, 0);
-        return today > due; // ถ้าวันนี้ มากกว่า วันกำหนดส่ง = เกินกำหนด
+        return today > due;
     };
 
     // กรองข้อมูลค้นหา
