@@ -51,10 +51,14 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
+      onClick={onCancel}
+      >
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+        >
 
-        {/* --- ✨ Header --- */}
+        {/* --- Header --- */}
         <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 flex items-center gap-4 text-white shadow-md">
           <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
             <FaUserEdit className="text-3xl" />
