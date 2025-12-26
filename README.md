@@ -60,7 +60,7 @@
     cd backend
     npm install
     
-    cd ../frontend
+    cd ../fontend
     npm install
     ```
 3.  **ตั้งค่า Environment Variables (.env)**
