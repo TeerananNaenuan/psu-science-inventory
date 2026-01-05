@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+
 const userRoutes = require('./Routes/user');
 const supplyRoutes = require('./Routes/supplies');
 const durableRoutes = require('./Routes/durables');
@@ -16,6 +19,8 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use(mongoSanitize());
+app.use(helmet());
 
 app.use(userRoutes)
 app.use(supplyRoutes)
