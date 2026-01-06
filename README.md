@@ -67,7 +67,7 @@
     สร้างไฟล์ `.env` ในโฟลเดอร์ backend และใส่ค่าดังนี้:
     ```js
     PORT=8888
-    MONGO_URI=your_mongodb_connection_string
+    MONGODB_URI=your_mongodb_connection_string
     IMAGEKIT_PUBLIC_KEY=your_public_key
     IMAGEKIT_PRIVATE_KEY=your_private_key
     IMAGEKIT_URL_ENDPOINT=your_url_endpoint
