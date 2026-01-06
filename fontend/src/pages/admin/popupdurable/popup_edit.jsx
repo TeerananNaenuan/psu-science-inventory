@@ -1,7 +1,6 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useState } from 'react';
-import { FaBoxOpen, FaCamera, FaEdit } from 'react-icons/fa';
-import AutoWidthInput from "../../../components/common/AutoWidthInput";
+import { FaBoxOpen, FaCamera, FaEdit, FaTimes } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
 
@@ -48,24 +47,31 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
-      onClick={onCancel}  
-      >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden"
+      onClick={onCancel}
+    >
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}
-        >
+      >
 
-        {/* Header */}
-        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 text-white flex items-center gap-3 relative">
-          <FaEdit className="text-3xl" />
-          <h2 className="text-2xl font-bold">แก้ไขข้อมูลครุภัณฑ์</h2>
+        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 text-white relative shadow-md">
 
-          {/* Watermark (Optional) */}
-          <FaBoxOpen className="absolute right-6 top-1/2 -translate-y-1/2 text-white/20 text-6xl" />
+          <div className="flex items-center gap-3">
+            <FaEdit className="text-3xl" />
+            <h2 className="text-2xl font-bold">แก้ไขข้อมูลครุภัณฑ์</h2>
+          </div>
+          <FaBoxOpen className="absolute right-16 top-1/2 -translate-y-1/2 text-white/10 text-6xl pointer-events-none" />
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={uploading}
+            className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors z-10"
+          >
+            <FaTimes size={17} />
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col md:flex-row">
 
-          {/* --- ฝั่งซ้าย: รูปภาพ --- */}
           <div className="w-full md:w-1/3 bg-gray-50 p-8 flex flex-col items-center border-r border-gray-100">
             <label className="text-gray-700 font-bold mb-4 self-start">รูปภาพครุภัณฑ์</label>
 
@@ -79,7 +85,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 </div>
               )}
 
-              {/* Upload Overlay */}
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <IKContext
                   publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
@@ -99,7 +104,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 </IKContext>
               </div>
 
-              {/* Loading Indicator */}
               {uploading && (
                 <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
@@ -110,18 +114,15 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
             <p className="text-xs text-gray-400 mt-3 text-center">
               คลิกที่รูปเพื่ออัปโหลดใหม่
             </p>
-            {/* Hidden Input */}
             <input type="hidden" name="image" value={formData.image} />
           </div>
 
-          {/* --- ฝั่งขวา: ข้อมูล --- */}
           <div className="w-full md:w-2/3 p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              {/* แถว 1 */}
               <div className="col-span-2">
                 <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อครุภัณฑ์ <span className="text-red-500">*</span></label>
-                <AutoWidthInput
+                <input
                   name="item"
                   value={formData.item}
                   onChange={onChange}
@@ -130,10 +131,9 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 />
               </div>
 
-              {/* แถว 2 */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1">หมายเลขทะเบียน<span className="text-red-500">*</span></label>
-                <AutoWidthInput
+                <input
                   name="asset_number"
                   value={formData.asset_number}
                   onChange={onChange}
@@ -144,7 +144,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1">สังกัด/แผนก</label>
-                <AutoWidthInput
+                <input
                   name="department"
                   value={formData.department}
                   onChange={onChange}
@@ -152,10 +152,9 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 />
               </div>
 
-              {/* แถว 3 */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1">จำนวน<span className="text-red-500">*</span></label>
-                <AutoWidthInput
+                <input
                   type="number"
                   name="quantity"
                   min="1"
@@ -180,7 +179,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 />
               </div>
 
-              {/* แถว 4 */}
               <div className="col-span-2">
                 <label className="block text-sm font-bold text-gray-700 mb-1">สถานะ</label>
                 <select
@@ -200,7 +198,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
             </div>
 
-            {/* Action Buttons */}
             <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-100">
               <button
                 type="button"
@@ -222,6 +219,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               </button>
             </div>
           </div>
+
         </form>
       </div>
     </div>
