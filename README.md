@@ -53,7 +53,7 @@
 
 1.  **Clone the repo**
     ```sh
-    git clone [https://github.com/your_username/psu-science-inventory.git](https://github.com/your_username/psu-science-inventory.git)
+    git clone https://github.com/TeerananNaenuan/psu-science-inventory.git
     ```
 2.  **Install NPM packages (สำหรับทั้ง Backend และ Frontend)**
     ```sh
