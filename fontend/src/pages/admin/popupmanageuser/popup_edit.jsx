@@ -1,7 +1,6 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useState } from 'react';
-import { FaCamera, FaUserCircle, FaUserEdit } from 'react-icons/fa';
-import AutoWidthInput from "../../../components/common/AutoWidthInput";
+import { FaCamera, FaTimes, FaUserCircle, FaUserEdit } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
 
@@ -51,15 +50,15 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
+    <div
+      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
       onClick={onCancel}
-      >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden"
+    >
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden relative" // เพิ่ม relative เผื่อไว้
         onClick={(e) => e.stopPropagation()}
-        >
-
-        {/* --- Header --- */}
-        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 flex items-center gap-4 text-white shadow-md">
+      >
+        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 flex items-center gap-4 text-white shadow-md relative">
           <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
             <FaUserEdit className="text-3xl" />
           </div>
@@ -67,25 +66,30 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
             <h2 className="text-2xl font-bold tracking-wide">แก้ไขข้อมูลผู้ใช้</h2>
             <p className="text-yellow-100 text-sm opacity-90">ปรับปรุงรายละเอียดบัญชีและสิทธิ์การใช้งาน</p>
           </div>
+
+          <button
+            type="button"
+            onClick={onCancel}
+            disabled={uploading}
+            className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors z-10"
+          >
+            <FaTimes size={17} />
+          </button>
         </div>
 
         <form onSubmit={onSubmit} className="p-8">
           <div className="flex flex-col md:flex-row gap-8">
 
-            {/* --- ฝั่งซ้าย: รูปโปรไฟล์ --- */}
             <div className="w-full md:w-1/3 flex flex-col items-center border-r border-gray-100 pr-4">
               <label className="text-gray-700 font-bold mb-4 self-start pl-2 border-l-4 border-yellow-500">รูปโปรไฟล์</label>
 
               <div className="relative group mt-2">
-                {/* วงกลมแสดงรูป */}
                 <div className="w-40 h-40 rounded-full border-4 border-yellow-100 overflow-hidden bg-gray-50 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
                   {formData.image ? (
                     <img src={formData.image} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
                     <FaUserCircle className="w-32 h-32 text-gray-300" />
                   )}
-
-                  {/* Loading Overlay */}
                   {uploading && (
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
                       <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
@@ -93,7 +97,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                   )}
                 </div>
 
-                {/* ปุ่มกล้องถ่ายรูป */}
                 <div className="absolute bottom-1 right-2 z-20">
                   <IKContext
                     publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
@@ -120,13 +123,12 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               <input type="hidden" name="image" value={formData.image || ''} />
             </div>
 
-            {/* --- ฝั่งขวา: ข้อมูลผู้ใช้ --- */}
             <div className="w-full md:w-2/3 flex flex-col gap-5">
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อผู้ใช้ (แก้ไขไม่ได้)<span className="text-red-500">*</span></label>
-                  <AutoWidthInput
+                  <input
                     type="text"
                     name="username"
                     value={formData.username}
@@ -138,7 +140,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">รหัสผ่านใหม่</label>
-                  <AutoWidthInput
+                  <input
                     type="password"
                     name="password"
                     value={formData.password}
@@ -153,7 +155,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อ-นามสกุล<span className="text-red-500">*</span></label>
-                <AutoWidthInput
+                <input
                   type="text"
                   name="fullname"
                   value={formData.fullname}
@@ -166,7 +168,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">สังกัด/คณะ</label>
-                  <AutoWidthInput
+                  <input
                     type="text"
                     name="department"
                     value={formData.department}
@@ -195,7 +197,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">อีเมล<span className="text-red-500">*</span></label>
-                  <AutoWidthInput
+                  <input
                     type="email"
                     name="email"
                     value={formData.email}
@@ -207,7 +209,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">เบอร์โทรศัพท์</label>
-                  <AutoWidthInput
+                  <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
@@ -222,7 +224,6 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
             </div>
           </div>
 
-          {/* ปุ่ม Action */}
           <div className="flex justify-end gap-4 mt-8 pt-5 border-t border-gray-100">
             <button
               type="button"
