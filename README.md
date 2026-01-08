@@ -73,14 +73,14 @@
     IMAGEKIT_URL_ENDPOINT=your_url_endpoint
     ```
 4.  **ตั้งค่า Environment Variables (.env)**
-    สร้างไฟล์ `.env` ในโฟลเดอร์ backend และใส่ค่าดังนี้:
+    สร้างไฟล์ `.env` ในโฟลเดอร์ fontend และใส่ค่าดังนี้:
     ```js
     VITE_API='http://localhost:8888'
     VITE_PUBLIC_KEY=your_public_key
     VITE_ENDPOINT=your_url_endpoint
     ```
 5.  **รันระบบ (Run the App)**
-    * Backend: `npm start` หรือ `node index.js`หรือ `npx nodemon`
+    * Backend: `npx nodemon`หรือ`node index.js`
     * Frontend: `npm run dev`
 
 ---
