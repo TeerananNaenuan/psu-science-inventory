@@ -90,7 +90,8 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                                  <>
                                     <FaBoxOpen className="text-6xl mb-3 opacity-30 text-blue-500" />
                                     <span className="font-bold text-gray-500">แตะเพื่ออัปโหลด</span>
-                                    <span className="text-xs text-gray-400 mt-1">(JPG, PNG)</span>
+                                    <span className="text-xs text-gray-400 mt-1">(รองรับไฟล์ JPG, PNG
+                                       ขนาดไม่เกิน 5MB)</span>
                                  </>
                               )}
                            </div>
