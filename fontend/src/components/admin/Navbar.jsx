@@ -114,21 +114,28 @@ const Admin_Navbar = ({ onLogout, role }) => {
       </nav>
       <div className={`lg:hidden absolute w-full bg-[#ffcd08] shadow-xl border-t border-black/5 transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"}`}>
         <div className="px-4 pt-4 pb-6 space-y-3 flex flex-col items-center">
-          <Link to="/" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg">หน้าหลัก</Link>
-          <Link to="/manage_durable" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg">จัดการครุภัณฑ์</Link>
-          <Link to="/manage_user" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg">จัดการผู้ใช้งาน</Link>
+          <Link to="/" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg transition-colors">หน้าหลัก</Link>
+          <Link to="/borrow" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg transition-colors">ยืม/คืนพัสดุ</Link>
+          <Link to="/rally_durable" onClick={() => setIsOpen(false)} className="w-full text-center py-3 font-bold hover:bg-white/20 rounded-lg transition-colors">ครุภัณฑ์</Link>
           <div className="w-full h-[1px] bg-black/10 my-2"></div>
-          <Link to="/profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-white/20 w-full justify-center">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white bg-white">
+          <Link to="/profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-white/20 w-full justify-center transition-colors">
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
               {userImage ? (
-                <img src={userImage} className="w-full h-full object-cover" />
+                <img src={userImage} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <FaUserCircle className="w-full h-full text-gray-400" />
+                <FaUserCircle className="w-full h-full text-gray-600 bg-white" />
               )}
             </div>
-            <span className="font-bold">{roleShort[role]}</span>
+            <div className="flex flex-col text-left">
+              <span className="font-bold text-gray-900">{roleShort[role]}</span>
+              <span className="text-xs text-gray-700">แตะเพื่อแก้ไขโปรไฟล์</span>
+            </div>
           </Link>
-          <button onClick={onLogout} className="w-full bg-white/90 text-red-600 py-3 rounded-lg font-bold shadow-sm flex justify-center gap-2 hover:bg-white">
+
+          <button
+            onClick={onLogout}
+            className="w-full bg-white/90 text-red-600 py-3 rounded-lg font-bold shadow-sm flex justify-center items-center gap-2 hover:bg-white transition-colors"
+          >
             <FaSignOutAlt /> ออกจากระบบ
           </button>
         </div>
