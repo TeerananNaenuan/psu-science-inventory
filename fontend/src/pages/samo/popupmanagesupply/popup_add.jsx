@@ -4,6 +4,8 @@ import { createPortal } from 'react-dom';
 import { FaBoxOpen, FaCamera } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
    const [uploading, setUploading] = useState(false);
@@ -98,8 +100,8 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
 
                      <div className="absolute inset-0 opacity-0 cursor-pointer">
                         <IKContext
-                           publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
-                           urlEndpoint="https://ik.imagekit.io/moxbp0hbo"
+                           publicKey={PUBLIC_KEY}
+                           urlEndpoint={ENDPOINT}
                            authenticator={authenticator}
                         >
                            <IKUpload
