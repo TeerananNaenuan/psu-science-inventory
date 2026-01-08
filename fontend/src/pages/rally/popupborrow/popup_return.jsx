@@ -4,12 +4,13 @@ import { createPortal } from 'react-dom';
 import { FaCamera, FaCheckCircle, FaCloudUploadAlt, FaTimes, FaUndoAlt } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 function Popup_return({ isOpen, onClose, onConfirm }) {
     const [returnImage, setReturnImage] = useState("");
     const [uploading, setUploading] = useState(false);
 
-    // Reset state เมื่อเปิด Popup
     useEffect(() => {
         if (isOpen) {
             setReturnImage("");
@@ -17,7 +18,6 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
         }
     }, [isOpen]);
 
-    // ถ้าไม่เปิด ให้ return null
     if (!isOpen) return null;
 
     const authenticator = async () => {
@@ -68,17 +68,12 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
 
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-
-            {/* Overlay สีดำจางๆ */}
             <div
                 className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             ></div>
-
-            {/* ตัว Popup */}
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100 animate-in fade-in zoom-in duration-200">
 
-                {/* Header Gradient */}
                 <div className="bg-gradient-to-r from-red-500 to-orange-500 px-6 py-4 flex items-center gap-3 text-white shadow-md relative z-10">
                     <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
                         <FaUndoAlt className="text-2xl" />
@@ -88,7 +83,6 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                         <p className="text-red-100 text-xs opacity-90">แนบหลักฐานการส่งคืน</p>
                     </div>
 
-                    {/* ปุ่มปิดมุมขวาบน */}
                     <button onClick={onClose} className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors">
                         <FaTimes />
                     </button>
@@ -99,12 +93,10 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                         <FaCamera className="text-red-500" /> อัปโหลดรูปภาพยืนยัน
                     </label>
 
-                    {/* Upload Area (Interactive) */}
                     <div className={`w-full h-64 relative group rounded-xl overflow-hidden border-2 border-dashed transition-all duration-300
                         ${returnImage ? 'border-green-500' : 'border-gray-300 hover:border-red-400 hover:bg-red-50/30'}
                     `}>
 
-                        {/* กรณีมีรูปภาพแล้ว */}
                         {returnImage ? (
                             <div className="relative w-full h-full">
                                 <img
@@ -112,19 +104,16 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                                     alt="Return Proof"
                                     className="w-full h-full object-cover"
                                 />
-                                {/* Hover Overlay */}
                                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <p className="text-white font-bold flex items-center gap-2">
                                         <FaCamera /> เปลี่ยนรูปภาพ
                                     </p>
                                 </div>
-                                {/* Badge Success */}
                                 <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full shadow flex items-center gap-1">
                                     <FaCheckCircle /> อัปโหลดเสร็จสิ้น
                                 </div>
                             </div>
                         ) : (
-                            // กรณีไม่มีรูปภาพ (Show Placeholder)
                             <div className={`w-full h-full flex flex-col items-center justify-center text-gray-400 ${uploading ? 'bg-gray-50' : ''}`}>
                                 {uploading ? (
                                     <>
@@ -144,11 +133,10 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                             </div>
                         )}
 
-                        {/* Hidden Input สำหรับ ImageKit (คลิกได้ทั่วพื้นที่) */}
                         <div className="absolute inset-0 opacity-0 cursor-pointer z-20">
                             <IKContext
-                                publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
-                                urlEndpoint="https://ik.imagekit.io/moxbp0hbo"
+                                publicKey={PUBLIC_KEY}
+                                urlEndpoint={ENDPOINT}
                                 authenticator={authenticator}
                             >
                                 <IKUpload
@@ -162,7 +150,6 @@ function Popup_return({ isOpen, onClose, onConfirm }) {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex justify-end gap-3 mt-8 pt-4 border-t border-gray-100">
                         <button
                             onClick={onClose}
