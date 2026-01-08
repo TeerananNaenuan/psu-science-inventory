@@ -5,6 +5,8 @@ import { FaCamera, FaSave, FaSpinner, FaTrash, FaUserCircle } from 'react-icons/
 import { useNavigate } from 'react-router-dom';
 
 const API = import.meta.env.VITE_API;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 function Profile() {
     const navigate = useNavigate();
@@ -25,8 +27,7 @@ function Profile() {
         return {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                "ngrok-skip-browser-warning": "true"
+                'Content-Type': 'application/json'
             }
         };
     };
@@ -176,8 +177,8 @@ function Profile() {
 
                                 <div className="absolute bottom-2 right-4 z-20">
                                     <IKContext
-                                        publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
-                                        urlEndpoint="https://ik.imagekit.io/moxbp0hbo"
+                                        publicKey={PUBLIC_KEY}
+                                        urlEndpoint={ENDPOINT}
                                         authenticator={authenticator}
                                     >
                                         <label className="cursor-pointer bg-white text-yellow-600 hover:text-yellow-700 p-3 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 border-2 border-yellow-500">
