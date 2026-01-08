@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FaBoxOpen, FaCalendarAlt, FaClipboardList, FaCubes, FaHashtag, FaLayerGroup } from 'react-icons/fa';
+import { FaBoxOpen, FaCalendarAlt, FaClipboardList, FaCubes, FaHashtag, FaLayerGroup, FaTimes } from 'react-icons/fa';
 
 function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
   const [quantity, setQuantity] = useState(1);
@@ -11,7 +11,6 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
     setReturnDate("");
   }, [selectedItem, isOpen]);
 
-  // ถ้าไม่เปิด หรือไม่มีข้อมูล ให้ return null ไปเลย
   if (!isOpen || !selectedItem) return null;
 
   const handleConfirm = () => {
@@ -35,15 +34,12 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
 
-      {/* Overlay สีดำจางๆ (คลิกพื้นหลังเพื่อปิด) */}
       <div
         className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       ></div>
-
       {/* ตัว Popup */}
       <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100 animate-in fade-in zoom-in duration-200">
-
         {/* Header */}
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 px-5 py-3 flex items-center gap-3 text-white shadow-md relative z-10">
           <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
@@ -53,6 +49,14 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
             <h2 className="text-lg font-bold tracking-wide">ยืนยันการยืมพัสดุ</h2>
             <p className="text-yellow-50 text-[10px] opacity-90">ตรวจสอบรายการด้านล่าง</p>
           </div>
+
+          {/* 2. เพิ่มปุ่มกากบาทตรงนี้ */}
+          <button 
+            onClick={onClose}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-full"
+          >
+            <FaTimes size={18} />
+          </button>
         </div>
 
         {/* Image Banner */}
@@ -69,7 +73,6 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
               <span className="text-xs font-medium">ไม่มีรูปภาพ</span>
             </div>
           )}
-
           <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-md backdrop-blur-md flex items-center gap-1.5">
             <FaCubes className="text-yellow-400" />
             <span>คงเหลือ: <span className="font-bold text-yellow-300">{selectedItem.stock ?? selectedItem.available ?? '-'}</span></span>
@@ -77,11 +80,9 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
         </div>
 
         <div className="p-5">
-
           {/* ข้อมูลพัสดุ */}
           <div className="mb-5 space-y-2">
             <h3 className="font-bold text-gray-900 text-xl leading-tight truncate">{selectedItem.item || selectedItem.name}</h3>
-
             <div className="flex flex-wrap gap-2">
               <div className="flex items-center gap-1.5 text-xs text-gray-600 bg-gray-100 px-2.5 py-1 rounded-full">
                 <FaHashtag className="text-gray-400" />
@@ -94,9 +95,7 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
             </div>
           </div>
 
-          {/* ฟอร์มกรอกข้อมูล */}
           <div className="space-y-3 p-4 bg-yellow-50/50 rounded-xl border border-yellow-100">
-
             {/* จำนวน */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-2">
@@ -127,10 +126,8 @@ function Popup_borrow({ selectedItem, isOpen, onClose, onConfirm }) {
                 onChange={(e) => setReturnDate(e.target.value)}
               />
             </div>
-
           </div>
 
-          {/* Action Buttons */}
           <div className="flex justify-end gap-3 mt-6">
             <button
               onClick={onClose}
