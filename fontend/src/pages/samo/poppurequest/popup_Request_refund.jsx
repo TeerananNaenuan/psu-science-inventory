@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { createPortal } from 'react-dom';
-import { FaBoxOpen, FaCheckCircle, FaClipboardList, FaImage, FaTimes, FaTimesCircle, FaUser } from 'react-icons/fa';
+import { FaBoxOpen, FaCheckCircle, FaClipboardList, FaImage, FaPhone, FaTimes, FaTimesCircle, FaUser } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
 
 function PopupReturnDetail({ item, onClose, onSuccess }) {
     if (!item) return null;
 
-    // ฟังก์ชันกด "ยืนยันรับคืน"
     const handleApproveReturn = async () => {
         if (!window.confirm(`ยืนยันการรับคืนพัสดุ "${item.supply_item}"?`)) return;
 
@@ -24,7 +23,6 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
         }
     };
 
-    // ฟังก์ชันกด "ปฏิเสธการคืน"
     const handleRejectReturn = async () => {
         const reason = prompt("ระบุเหตุผลที่ปฏิเสธ (เช่น ของชำรุด, หลักฐานไม่ชัดเจน):");
         if (!reason) return;
@@ -44,20 +42,14 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
         }
     };
 
-    // ใช้ createPortal
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-
-            {/* Overlay */}
             <div
                 className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
                 onClick={onClose}
             ></div>
 
-            {/* Popup Container */}
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-fade-in-up flex flex-col max-h-[90vh]">
-
-                {/* Header Gradient (Orange-Red for Return Check) */}
                 <div className="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4 flex items-center gap-3 text-white shadow-md flex-shrink-0">
                     <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
                         <FaClipboardList className="text-2xl" />
@@ -71,10 +63,7 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                     </button>
                 </div>
 
-                {/* Content (Scrollable) */}
                 <div className="p-6 overflow-y-auto custom-scrollbar">
-
-                    {/* ข้อมูลผู้คืน */}
                     <div className="bg-orange-50 rounded-xl p-4 mb-4 border border-orange-100 flex items-start gap-4">
                         <div className="bg-white p-3 rounded-full text-orange-500 shadow-sm flex-shrink-0">
                             <FaUser />
@@ -91,13 +80,12 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                                     <div className="bg-white p-1 rounded-full text-orange-400 shadow-sm border border-orange-100">
                                         <FaPhone size={10} />
                                     </div>
-                                    <span>{item.phone|| 'ไม่ระบุเบอร์โทร'}</span>
+                                    <span>{item.phone || 'ไม่ระบุเบอร์โทร'}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* ข้อมูลพัสดุ */}
                     <div className="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
                         <h3 className="font-bold text-gray-800 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                             <FaBoxOpen className="text-gray-400" /> รายละเอียดพัสดุ
@@ -126,7 +114,6 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                         </div>
                     </div>
 
-                    {/* หลักฐานรูปภาพ */}
                     <div className="mb-2">
                         <h3 className="font-bold text-gray-800 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                             <FaImage className="text-gray-400" /> หลักฐานการคืน
@@ -154,8 +141,6 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                     </div>
 
                 </div>
-
-                {/* Footer Actions */}
                 <div className="p-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 flex-shrink-0">
                     <button
                         onClick={handleRejectReturn}
@@ -170,6 +155,7 @@ function PopupReturnDetail({ item, onClose, onSuccess }) {
                         <FaCheckCircle /> ยืนยันรับคืน
                     </button>
                 </div>
+
             </div>
         </div>,
         document.body
