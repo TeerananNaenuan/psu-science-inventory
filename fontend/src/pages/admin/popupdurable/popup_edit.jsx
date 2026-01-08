@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { FaBoxOpen, FaCamera, FaEdit, FaTimes } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
   const [uploading, setUploading] = useState(false);
@@ -87,8 +89,8 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <IKContext
-                  publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU="
-                  urlEndpoint="https://ik.imagekit.io/moxbp0hbo"
+                  publicKey={PUBLIC_KEY}
+                  urlEndpoint={ENDPOINT}
                   authenticator={authenticator}
                 >
                   <label className="cursor-pointer bg-white text-yellow-600 px-4 py-2 rounded-full font-bold shadow-lg hover:bg-yellow-50 transition-transform hover:scale-105 border border-yellow-200">
