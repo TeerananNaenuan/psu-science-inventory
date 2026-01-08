@@ -53,44 +53,44 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
+      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto md:overflow-visible"
       onClick={onCancel}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden relative" // เพิ่ม relative เผื่อไว้
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl relative overflow-hidden flex flex-col md:block"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-5 flex items-center gap-4 text-white shadow-md relative">
+
+        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-4 py-4 md:px-8 md:py-5 flex items-center gap-4 text-white shadow-md sticky top-0 z-20 md:static md:z-auto">
           <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
-            <FaUserEdit className="text-3xl" />
+            <FaUserEdit className="text-2xl md:text-3xl" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold tracking-wide">แก้ไขข้อมูลผู้ใช้</h2>
-            <p className="text-yellow-100 text-sm opacity-90">ปรับปรุงรายละเอียดบัญชีและสิทธิ์การใช้งาน</p>
+            <h2 className="text-xl md:text-2xl font-bold tracking-wide">แก้ไขข้อมูลผู้ใช้</h2>
+            <p className="text-yellow-100 text-xs md:text-sm opacity-90">ปรับปรุงรายละเอียดบัญชีและสิทธิ์การใช้งาน</p>
           </div>
 
           <button
             type="button"
             onClick={onCancel}
             disabled={uploading}
-            className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors z-10"
+            className="absolute right-3 top-3 md:right-4 md:top-4 text-white/70 hover:text-white transition-colors z-10"
           >
             <FaTimes size={17} />
           </button>
         </div>
 
-        <form onSubmit={onSubmit} className="p-8">
-          <div className="flex flex-col md:flex-row gap-8">
-
-            <div className="w-full md:w-1/3 flex flex-col items-center border-r border-gray-100 pr-4">
-              <label className="text-gray-700 font-bold mb-4 self-start pl-2 border-l-4 border-yellow-500">รูปโปรไฟล์</label>
+        <div className="overflow-y-auto max-h-[80vh] md:max-h-none md:overflow-visible">
+          <form onSubmit={onSubmit} className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/3 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 p-6 md:p-8">
+              <label className="text-gray-700 font-bold mb-4 self-start pl-2 border-l-4 border-yellow-500 text-sm md:text-base">รูปโปรไฟล์</label>
 
               <div className="relative group mt-2">
-                <div className="w-40 h-40 rounded-full border-4 border-yellow-100 overflow-hidden bg-gray-50 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-yellow-100 overflow-hidden bg-gray-50 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
                   {formData.image ? (
                     <img src={formData.image} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <FaUserCircle className="w-32 h-32 text-gray-300" />
+                    <FaUserCircle className="w-24 h-24 md:w-32 md:h-32 text-gray-300" />
                   )}
                   {uploading && (
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
@@ -105,8 +105,8 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                     urlEndpoint={ENDPOINT}
                     authenticator={authenticator}
                   >
-                    <label className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white p-2.5 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 border-2 border-white">
-                      <FaCamera className="text-sm" />
+                    <label className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white p-2 md:p-2.5 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 border-2 border-white">
+                      <FaCamera className="text-xs md:text-sm" />
                       <IKUpload
                         fileName="user-profile.jpg"
                         onError={onError}
@@ -125,9 +125,9 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
               <input type="hidden" name="image" value={formData.image || ''} />
             </div>
 
-            <div className="w-full md:w-2/3 flex flex-col gap-5">
+            <div className="w-full md:w-2/3 flex flex-col gap-4 md:gap-5 p-5 md:p-8">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อผู้ใช้ (แก้ไขไม่ได้)<span className="text-red-500">*</span></label>
                   <input
@@ -167,7 +167,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">สังกัด/คณะ</label>
                   <input
@@ -196,7 +196,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-1">อีเมล<span className="text-red-500">*</span></label>
                   <input
@@ -223,28 +223,27 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                 </div>
               </div>
 
+              <div className="flex flex-col-reverse md:flex-row justify-end gap-3 md:gap-4 mt-8 pt-5 border-t border-gray-100">
+                <button
+                  type="button"
+                  className="w-full md:w-auto px-6 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 font-bold transition-colors"
+                  onClick={onCancel}
+                  disabled={uploading}
+                >
+                  ยกเลิก
+                </button>
+                <button
+                  type="submit"
+                  className={`w-full md:w-auto px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700'}`}
+                  disabled={uploading}
+                >
+                  {uploading ? 'กำลังโหลด...' : 'บันทึกการแก้ไข'}
+                </button>
+              </div>
+
             </div>
-          </div>
-
-          <div className="flex justify-end gap-4 mt-8 pt-5 border-t border-gray-100">
-            <button
-              type="button"
-              className="px-6 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 font-bold transition-colors"
-              onClick={onCancel}
-              disabled={uploading}
-            >
-              ยกเลิก
-            </button>
-            <button
-              type="submit"
-              className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700'}`}
-              disabled={uploading}
-            >
-              {uploading ? 'กำลังโหลด...' : 'บันทึกการแก้ไข'}
-            </button>
-          </div>
-
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
