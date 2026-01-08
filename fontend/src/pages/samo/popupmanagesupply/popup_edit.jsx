@@ -1,10 +1,11 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FaBoxOpen, FaCamera, FaEdit } from 'react-icons/fa';
-import AutoWidthInput from "../../../components/common/AutoWidthInput";
+import { FaBoxOpen, FaCamera, FaEdit, FaTimes } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
+const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
 function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
    const [uploading, setUploading] = useState(false);
@@ -15,7 +16,7 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
          const response = await fetch(`${API}/imagekit-auth`, {
             headers: {
                "Authorization": `Bearer ${token}`,
-               "Content-Type": "application/json"
+               "Content-Type": "application/json",
             }
          });
          if (!response.ok) throw new Error(`Request failed`);
@@ -30,13 +31,9 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
 
    return createPortal(
       <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-
-         {/* Overlay */}
          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onCancel}></div>
-
          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden animate-fade-in-up">
 
-            {/* Header Orange */}
             <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-6 py-4 flex items-center gap-3 text-white shadow-md">
                <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
                   <FaEdit className="text-2xl" />
@@ -45,11 +42,13 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                   <h2 className="text-xl font-bold tracking-wide">แก้ไขข้อมูลพัสดุ</h2>
                   <p className="text-yellow-50 text-xs opacity-90">ปรับปรุงรายละเอียดรายการพัสดุ</p>
                </div>
+               <button onClick={onCancel} className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors">
+                  <FaTimes />
+               </button>
             </div>
 
             <form onSubmit={onSubmit} className="flex flex-col md:flex-row">
 
-               {/* Left: Image */}
                <div className="w-full md:w-5/12 bg-gray-50 p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-100">
                   <label className="text-gray-700 font-bold mb-4 flex items-center gap-2 self-start">
                      <FaCamera className="text-orange-500" /> รูปภาพพัสดุ
@@ -77,46 +76,92 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
                         </div>
                      )}
                      <div className="absolute inset-0 opacity-0 cursor-pointer">
-                        <IKContext publicKey="public_DOSBbESKgnmdajaBQDblFLCEaUU=" urlEndpoint="https://ik.imagekit.io/moxbp0hbo" authenticator={authenticator}>
-                           <IKUpload fileName="supply-item.jpg" onError={onError} onSuccess={onSuccess} onUploadStart={onUploadStart} className="w-full h-full cursor-pointer" />
+                        <IKContext
+                           publicKey={PUBLIC_KEY}
+                           urlEndpoint={ENDPOINT}
+                           authenticator={authenticator}>
+                           <IKUpload
+                              fileName="supply-item.jpg"
+                              onError={onError}
+                              onSuccess={onSuccess}
+                              onUploadStart={onUploadStart}
+                              className="w-full h-full cursor-pointer" />
                         </IKContext>
                      </div>
                   </div>
                   <input type="hidden" name="image" value={formData.image} required />
                </div>
 
-               {/* Right: Form */}
                <div className="w-full md:w-7/12 p-8 flex flex-col justify-between">
                   <div className="space-y-5">
                      <div>
                         <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อพัสดุ<span className="text-red-500">*</span></label>
-                        <AutoWidthInput type="text" name="item" value={formData.item} onChange={onChange} required className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-gray-800 font-medium" />
+                        <input
+                           type="text"
+                           name="item"
+                           value={formData.item}
+                           onChange={onChange}
+                           required
+                           className="w-full bg-white border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-gray-800 font-medium" />
                      </div>
                      <div className="grid grid-cols-2 gap-5">
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1"> หมวดหมู่</label>
-                           <AutoWidthInput type="text" name="category" value={formData.category} onChange={onChange} required className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow" />
+                           <input
+                              type="text"
+                              name="category"
+                              value={formData.category}
+                              onChange={onChange}
+                              required
+                              className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow" />
                         </div>
                         <div>
                            <label className="block text-sm font-bold text-gray-500 mb-1 flex items-center gap-1">รหัสพัสดุ (แก้ไขไม่ได้)<span className="text-red-500">*</span></label>
-                           <AutoWidthInput type="text" name="supply_number" value={formData.supply_number} onChange={onChange} required disabled className="w-full bg-gray-100 border border-gray-200 px-3 py-2 rounded-lg text-gray-500 font-mono text-sm cursor-not-allowed" />
+                           <input
+                              type="text"
+                              name="supply_number"
+                              value={formData.supply_number}
+                              onChange={onChange}
+                              required
+                              disabled
+                              className="w-full bg-gray-100 border border-gray-200 px-3 py-2 rounded-lg text-gray-500 font-mono text-sm cursor-not-allowed" />
                         </div>
                      </div>
                      <div className="grid grid-cols-2 gap-5">
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">คงเหลือ<span className="text-red-500">*</span></label>
-                           <input type="number" name="stock" min={0} value={formData.stock} onChange={onChange} required className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-center font-bold text-gray-800" />
+                           <input
+                              type="number"
+                              name="stock"
+                              min={0}
+                              value={formData.stock}
+                              onChange={onChange}
+                              required
+                              className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-center font-bold text-gray-800" />
                         </div>
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">หน่วย<span className="text-red-500">*</span></label>
-                           <AutoWidthInput type="text" name="unit" value={formData.unit} onChange={onChange} required className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-left" />
+                           <input
+                              type="text"
+                              name="unit"
+                              value={formData.unit}
+                              onChange={onChange}
+                              required
+                              className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none transition-shadow text-left" />
                         </div>
                      </div>
                   </div>
 
                   <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
-                     <button type="button" onClick={onCancel} disabled={uploading} className="px-6 py-2.5 rounded-lg text-gray-600 font-bold hover:bg-gray-100 transition-colors">ยกเลิก</button>
-                     <button type="submit" disabled={uploading} className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400' : 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600'}`}>
+                     <button
+                        type="button"
+                        onClick={onCancel}
+                        disabled={uploading}
+                        className="px-6 py-2.5 rounded-lg text-gray-600 font-bold hover:bg-gray-100 transition-colors">ยกเลิก</button>
+                     <button
+                        type="submit"
+                        disabled={uploading}
+                        className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400' : 'bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600'}`}>
                         {uploading ? 'กำลังบันทึก...' : 'บันทึกการแก้ไข'}
                      </button>
                   </div>
