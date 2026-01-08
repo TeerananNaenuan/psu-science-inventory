@@ -1,6 +1,6 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useState } from 'react';
-import { FaBoxOpen, FaCamera, FaTimes } from 'react-icons/fa';
+import { FaCamera, FaTimes, FaUserCircle, FaUserPlus } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
 const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
@@ -37,7 +37,7 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
   const onError = (err) => {
     console.log("Error", err);
     setUploading(false);
-    alert("อัปโหลดรูปภาพล้มเหลว กรุณาลองใหม่");
+    alert("อัปโหลดรูปภาพล้มเหลว");
   };
 
   const onSuccess = (res) => {
@@ -47,186 +47,212 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
     });
   };
 
+  const onUploadStart = () => {
+    setUploading(true);
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4 overflow-y-auto md:overflow-visible"
+    <div
+      className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm p-4"
       onClick={onCancel}
     >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl relative overflow-hidden flex flex-col md:block"
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden relative" // เพิ่ม relative เผื่อไว้
         onClick={(e) => e.stopPropagation()}
       >
 
-        <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-4 md:px-8 md:py-5 text-white shadow-md sticky top-0 z-20 md:static md:z-auto">
-          <div className="flex items-center gap-3">
-            <FaBoxOpen className="text-2xl md:text-3xl" />
-            <h2 className="text-xl md:text-2xl font-bold">เพิ่มครุภัณฑ์ใหม่</h2>
+        <div className="bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-5 flex items-center gap-4 text-white shadow-md relative">
+          <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
+            <FaUserPlus className="text-3xl" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold tracking-wide">เพิ่มผู้ใช้งานใหม่</h2>
+            <p className="text-blue-100 text-sm opacity-90">กรอกข้อมูลเพื่อสร้างบัญชีผู้ใช้ในระบบ</p>
           </div>
 
           <button
             type="button"
             onClick={onCancel}
             disabled={uploading}
-            className="absolute right-3 top-3 md:right-4 md:top-4 text-white/70 hover:text-white transition-colors z-10"
+            className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors z-10"
           >
-            <FaTimes size={20} className="md:w-[17px] md:h-[17px]" />
+            <FaTimes size={17} />
           </button>
         </div>
 
-        <div className="overflow-y-auto max-h-[80vh] md:max-h-none md:overflow-visible">
-          <form onSubmit={onSubmit} className="flex flex-col md:flex-row">
-            <div className="w-full md:w-1/3 bg-gray-50 p-6 md:p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100">
-              <label className="text-gray-700 font-bold mb-4 flex items-center gap-2 self-start pl-2 border-l-4 border-blue-500 text-sm md:text-base">
-                <FaCamera className="text-blue-500" />รูปภาพครุภัณฑ์
-              </label>
+        <form onSubmit={onSubmit} className="p-8">
+          <div className="flex flex-col md:flex-row gap-8">
 
-              <div className="w-48 h-48 md:w-full md:h-auto md:aspect-square border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center bg-white relative overflow-hidden group hover:border-blue-400 transition-colors">
-                {formData.image ? (
-                  <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-center text-gray-400">
-                    <FaCamera className="text-4xl md:text-5xl mx-auto mb-2 opacity-50" />
-                    <span className="text-xs md:text-sm">ไม่มีรูปภาพ</span>
-                  </div>
-                )}
+            <div className="w-full md:w-1/3 flex flex-col items-center border-r border-gray-100 pr-4">
+              <label className="text-gray-700 font-bold mb-4 self-start pl-2 border-l-4 border-blue-500">รูปโปรไฟล์</label>
 
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="relative group mt-2">
+                <div className="w-40 h-40 rounded-full border-4 border-blue-100 overflow-hidden bg-gray-50 flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
+                  {formData.image ? (
+                    <img src={formData.image} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <FaUserCircle className="w-32 h-32 text-gray-300" />
+                  )}
+
+                  {uploading && (
+                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
+                      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="absolute bottom-1 right-2 z-20">
                   <IKContext
                     publicKey={PUBLIC_KEY}
                     urlEndpoint={ENDPOINT}
                     authenticator={authenticator}
                   >
-                    <label className="cursor-pointer bg-white text-blue-600 px-4 py-2 rounded-full font-bold shadow-lg hover:bg-blue-50 transition-transform hover:scale-105 text-sm md:text-base">
-                      {uploading ? 'กำลัง...' : 'เลือกรูปภาพ'}
+                    <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 border-2 border-white">
+                      <FaCamera className="text-sm" />
                       <IKUpload
-                        fileName="durable-item.jpg"
+                        fileName="user-profile.jpg"
                         onError={onError}
                         onSuccess={onSuccess}
-                        onUploadStart={() => setUploading(true)}
+                        onUploadStart={onUploadStart}
                         className="hidden"
                       />
                     </label>
                   </IKContext>
                 </div>
-                {uploading && (
-                  <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                  </div>
-                )}
               </div>
 
-              <p className="text-xs text-gray-400 mt-3 text-center">
-                รองรับไฟล์ JPG, PNG <br /> ขนาดไม่เกิน 5MB
+              <p className="text-xs text-gray-400 mt-4 text-center">
+                รองรับไฟล์ JPG, PNG<br />ขนาดแนะนำ 500x500 px
               </p>
-              <input type="hidden" name="image" value={formData.image} />
+              <input type="hidden" name="image" value={formData.image || ''} />
             </div>
 
-            <div className="w-full md:w-2/3 p-5 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="w-full md:w-2/3 flex flex-col gap-5">
 
-                <div className="col-span-1 md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อครุภัณฑ์ <span className="text-red-500">*</span></label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อผู้ใช้ (Login) <span className="text-red-500">*</span></label>
                   <input
-                    name="item"
-                    value={formData.item}
+                    type="text"
+                    name="username"
+                    value={formData.username}
                     onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    placeholder="เช่น เครื่องคอมพิวเตอร์, โต๊ะทำงาน"
                     required
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                    placeholder="Username"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">หมายเลขทะเบียน <span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">รหัสผ่าน<span className="text-red-500">*</span></label>
                   <input
-                    name="asset_number"
-                    value={formData.asset_number}
+                    type="password"
+                    name="password"
+                    value={formData.password}
                     onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
-                    placeholder="เช่น 7110-001-0001"
                     required
+                    pattern=".{6,}"
+                    title="อย่างน้อย 6 ตัวอักษร"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                    placeholder="Password"
                   />
                 </div>
+              </div>
 
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อ-นามสกุล<span className="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  name="fullname"
+                  value={formData.fullname}
+                  onChange={onChange}
+                  required
+                  className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                  placeholder="กรอกชื่อและนามสกุล"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">สังกัด/แผนก <span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">สังกัด/คณะ</label>
                   <input
+                    type="text"
                     name="department"
                     value={formData.department}
                     onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    placeholder="ระบุสังกัด"
-                    required
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                    placeholder="เช่น คณะวิทยาศาสตร์"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">จำนวน <span className="text-red-500">*</span></label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    min="1"
-                    value={formData.quantity}
-                    onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-center"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">ปีงบประมาณ <span className="text-red-500">*</span></label>
-                  <input
-                    type="number"
-                    name="budget_year"
-                    min="2500"
-                    max="2600"
-                    value={formData.budget_year}
-                    onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-center"
-                    placeholder="พ.ศ."
-                    required
-                  />
-                </div>
-
-                <div className="col-span-1 md:col-span-2">
-                  <label className="block text-sm font-bold text-gray-700 mb-1">สถานะ</label>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">สิทธิ์การใช้งาน</label>
                   <select
-                    name="status"
-                    value={formData.status}
+                    name="role"
+                    value={formData.role}
                     onChange={onChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none bg-white transition-shadow"
                     required
                   >
-                    <option value="พร้อมใช้งาน">พร้อมใช้งาน</option>
-                    <option value="เสื่อมสภาพ">เสื่อมสภาพ</option>
-                    <option value="ชำรุด">ชำรุด</option>
-                    <option value="สูญหาย">สูญหาย</option>
+                    <option value="user">ผู้ใช้งานทั่วไป</option>
+                    <option value="samo">สโมสร</option>
+                    <option value="rally">ชุมนุม</option>
+                    <option value="admin">ผู้ดูแลระบบ</option>
                   </select>
                 </div>
-
               </div>
 
-              <div className="flex flex-col-reverse md:flex-row justify-end gap-3 md:gap-4 mt-6 md:mt-8 pt-6 border-t border-gray-100">
-                <button
-                  type="button"
-                  className="w-full md:w-auto px-6 py-2.5 rounded-lg text-gray-600 font-bold hover:bg-gray-100 transition-colors"
-                  onClick={onCancel}
-                  disabled={uploading}
-                >
-                  ยกเลิก
-                </button>
-                <button
-                  type="submit"
-                  className={`w-full md:w-auto px-8 py-2.5 rounded-lg text-white font-bold shadow-md transform transition-transform hover:-translate-y-0.5 ${uploading
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'
-                    }`}
-                  disabled={uploading}
-                >
-                  {uploading ? 'กำลังโหลด...' : 'บันทึกข้อมูล'}
-                </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">อีเมล<span className="text-red-500">*</span></label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={onChange}
+                    required
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                    placeholder="email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={onChange}
+                    pattern="[0-9]{10}"
+                    maxLength={10}
+                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2.5 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-shadow"
+                    placeholder="0xxxxxxxxx"
+                  />
+                </div>
               </div>
+
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div className="flex justify-end gap-4 mt-8 pt-5 border-t border-gray-100">
+            <button
+              type="button"
+              className="px-6 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 font-bold transition-colors"
+              onClick={onCancel}
+              disabled={uploading}
+            >
+              ยกเลิก
+            </button>
+            <button
+              type="submit"
+              className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'}`}
+              disabled={uploading}
+            >
+              {uploading ? 'กำลังโหลด...' : 'บันทึกข้อมูล'}
+            </button>
+          </div>
+
+        </form>
       </div>
     </div>
   );
