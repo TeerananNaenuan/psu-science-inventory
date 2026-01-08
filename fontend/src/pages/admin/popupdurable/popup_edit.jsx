@@ -58,7 +58,10 @@ function PopupEdit({ formData, onChange, onCancel, onSubmit }) {
         <div className="bg-gradient-to-r from-yellow-500 to-orange-500 px-4 py-4 md:px-8 md:py-5 text-white relative shadow-md sticky top-0 z-20 md:static md:z-auto">
           <div className="flex items-center gap-3">
             <FaEdit className="text-2xl md:text-3xl" />
-            <h2 className="text-xl md:text-2xl font-bold">แก้ไขข้อมูลครุภัณฑ์</h2>
+          <div>
+            <h2 className="text-2xl font-bold tracking-wide">แก้ไขข้อมูลครุภัณฑ์</h2>
+            <p className="text-blue-100 text-sm opacity-90">ปรับปรุงรายละเอียดรายการครุภัณฑ์</p>
+          </div>
           </div>
           <FaBoxOpen className="absolute right-12 top-1/2 -translate-y-1/2 text-white/10 text-5xl pointer-events-none md:right-16 md:text-6xl" />
           <button
