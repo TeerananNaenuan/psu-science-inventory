@@ -1,7 +1,7 @@
 import { IKContext, IKUpload } from 'imagekitio-react';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FaBoxOpen, FaCamera } from 'react-icons/fa';
+import { FaBoxOpen, FaCamera, FaTimes } from 'react-icons/fa';
 
 const API = import.meta.env.VITE_API;
 const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
@@ -45,7 +45,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
    return createPortal(
       <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
 
-         {/* Overlay */}
          <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
             onClick={onCancel}
@@ -53,7 +52,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
 
          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden animate-fade-in-up">
 
-            {/* Header */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-400 px-6 py-4 flex items-center gap-3 text-white shadow-md">
                <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
                   <FaBoxOpen className="text-2xl" />
@@ -62,11 +60,13 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                   <h2 className="text-xl font-bold tracking-wide">เพิ่มพัสดุใหม่</h2>
                   <p className="text-blue-100 text-xs opacity-90">กรอกรายละเอียดพัสดุเพื่อนำเข้าระบบ</p>
                </div>
+               <button onClick={onCancel} className="absolute right-4 top-4 text-white/70 hover:text-white transition-colors">
+                  <FaTimes />
+               </button>
             </div>
 
             <form onSubmit={onSubmit} className="flex flex-col md:flex-row">
 
-               {/* Left Column: Image */}
                <div className="w-full md:w-5/12 bg-gray-50 p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-100">
                   <label className="text-gray-700 font-bold mb-4 flex items-center gap-2 self-start pl-2 border-l-4 border-blue-500">
                      <FaCamera className="text-blue-500" /> รูปภาพพัสดุ
@@ -117,11 +117,9 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                   <input type="hidden" name="image" value={formData.image} required />
                </div>
 
-               {/* Right Column: Form */}
                <div className="w-full md:w-7/12 p-8 flex flex-col justify-between">
                   <div className="space-y-5">
 
-                     {/* ชื่อพัสดุ */}
                      <div>
                         <label className="block text-sm font-bold text-gray-700 mb-1">ชื่อพัสดุ <span className="text-red-500">*</span></label>
                         <input
@@ -137,7 +135,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
 
                      <div className="grid grid-cols-2 gap-5">
 
-                        {/* หมวดหมู่ */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
                               หมวดหมู่
@@ -152,7 +149,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                            />
                         </div>
 
-                        {/* รหัสพัสดุ */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
                               รหัสพัสดุ <span className="text-red-500">*</span>
@@ -170,8 +166,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                      </div>
 
                      <div className="grid grid-cols-2 gap-5">
-
-                        {/* จำนวน */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
                               จำนวน <span className="text-red-500">*</span>
@@ -188,7 +182,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                            />
                         </div>
 
-                        {/* หน่วย */}
                         <div>
                            <label className="block text-sm font-bold text-gray-700 mb-1 flex items-center gap-1">
                               หน่วย <span className="text-red-500">*</span>
@@ -206,7 +199,6 @@ function PopupAdd({ formData, onChange, onCancel, onSubmit }) {
                      </div>
                   </div>
 
-                  {/* Buttons */}
                   <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
                      <button type="button" onClick={onCancel} disabled={uploading} className="px-6 py-2.5 rounded-lg text-gray-600 font-bold hover:bg-gray-100 transition-colors">ยกเลิก</button>
                      <button type="submit" disabled={uploading} className={`px-8 py-2.5 rounded-lg text-white font-bold shadow-lg transform transition-transform hover:-translate-y-0.5 ${uploading ? 'bg-gray-400' : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700'}`}>
